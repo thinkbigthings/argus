@@ -1,6 +1,6 @@
-# ZDD - Zero Downtime Deployment
+# Argus Project
 
-This project illustrates zero downtime deployments across the full stack.
+This project is a multi-dispensary search and notification app.
 
 ## Setup
 
