@@ -1,0 +1,4 @@
+
+rootProject.name = 'argus'
+
+include 'reactjs', 'perf', 'server', 'dto'

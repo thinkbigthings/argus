@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>StringToOperatorMapper.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">server</a> &gt; <a href="index.source.html" class="el_package">org.thinkbigthings.zdd.server.mapper.dtotoentity</a> &gt; <span class="el_source">StringToOperatorMapper.java</span></div><h1>StringToOperatorMapper.java</h1><pre class="source lang-java linenums">package org.thinkbigthings.zdd.server.mapper.dtotoentity;
+
+import org.thinkbigthings.zdd.server.entity.Operator;
+
+import java.util.function.Function;
+
+import static org.thinkbigthings.zdd.server.entity.Operator.*;
+
+<span class="fc" id="L9">public class StringToOperatorMapper implements Function&lt;String, Operator&gt; {</span>
+
+    @Override
+    public Operator apply(String op) {
+<span class="fc bfc" id="L13" title="All 6 branches covered.">        return switch(op) {</span>
+<span class="fc" id="L14">            case &quot;&lt;&quot;  -&gt; LT;</span>
+<span class="fc" id="L15">            case &quot;&lt;=&quot; -&gt; LTE;</span>
+<span class="fc" id="L16">            case &quot;=&quot;  -&gt; EQ;</span>
+<span class="fc" id="L17">            case &quot;&gt;=&quot; -&gt; GTE;</span>
+<span class="fc" id="L18">            case &quot;&gt;&quot;  -&gt; GT;</span>
+<span class="fc" id="L19">            default   -&gt; throw new IllegalArgumentException(&quot;Operator string not recognized: &quot; + op);</span>
+        };
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

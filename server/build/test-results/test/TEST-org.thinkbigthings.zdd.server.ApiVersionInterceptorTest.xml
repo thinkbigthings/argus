@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.thinkbigthings.zdd.server.ApiVersionInterceptorTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2022-12-10T20:44:19" hostname="MAC-jyoung.local" time="0.029">
+  <properties/>
+  <testcase name="outdatedApiVersionHeader()" classname="org.thinkbigthings.zdd.server.ApiVersionInterceptorTest" time="0.024"/>
+  <testcase name="matchingApiVersionHeader()" classname="org.thinkbigthings.zdd.server.ApiVersionInterceptorTest" time="0.003"/>
+  <testcase name="missingApiVersionHeader()" classname="org.thinkbigthings.zdd.server.ApiVersionInterceptorTest" time="0.002"/>
+  <system-out><![CDATA[15:44:19.130 [Test worker] ERROR org.thinkbigthings.zdd.server.ApiVersionInterceptor - Request api 22 does not match server api 23
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

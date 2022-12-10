@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">server</a> &gt; <a href="index.source.html" class="el_package">org.thinkbigthings.zdd.server.service</a> &gt; <span class="el_source">UserService.java</span></div><h1>UserService.java</h1><pre class="source lang-java linenums">package org.thinkbigthings.zdd.server.service;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
+import org.thinkbigthings.zdd.dto.AddressRecord;
+import org.thinkbigthings.zdd.dto.PersonalInfo;
+import org.thinkbigthings.zdd.dto.RegistrationRequest;
+import org.thinkbigthings.zdd.dto.UserSummary;
+import org.thinkbigthings.zdd.server.entity.Address;
+import org.thinkbigthings.zdd.server.entity.Role;
+import org.thinkbigthings.zdd.server.entity.SearchConfig;
+import org.thinkbigthings.zdd.server.entity.User;
+import org.thinkbigthings.zdd.server.mapper.entitytodto.UserMapper;
+import org.thinkbigthings.zdd.server.repository.UserRepository;
+
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.ConstraintViolationException;
+import java.net.URLEncoder;
+import java.time.Instant;
+import java.util.List;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
+import static java.util.stream.Collectors.joining;
+
+
+@Service
+public class UserService {
+
+<span class="fc" id="L36">    private static Logger LOG = LoggerFactory.getLogger(UserService.class);</span>
+
+
+<span class="fc" id="L39">    private UserMapper toUserRecord = new UserMapper();</span>
+
+    private UserRepository userRepo;
+    private PasswordEncoder passwordEncoder;
+
+<span class="fc" id="L44">    public UserService(UserRepository repo, PasswordEncoder passwordEncoder) {</span>
+<span class="fc" id="L45">        this.userRepo = repo;</span>
+<span class="fc" id="L46">        this.passwordEncoder = passwordEncoder;</span>
+<span class="fc" id="L47">    }</span>
+
+    @Transactional
+    public void updatePassword(String username, String newPassword) {
+
+<span class="fc" id="L52">        var user = userRepo.findByUsername(username)</span>
+<span class="pc" id="L53">                .orElseThrow(() -&gt; new EntityNotFoundException(&quot;no user found for &quot; + username));</span>
+
+<span class="fc" id="L55">        user.setPassword(passwordEncoder.encode(newPassword));</span>
+<span class="fc" id="L56">    }</span>
+
+    @Transactional
+    public org.thinkbigthings.zdd.dto.User updateUser(String username, PersonalInfo userData) {
+
+<span class="fc" id="L61">        var user = userRepo.findByUsername(username)</span>
+<span class="pc" id="L62">                .orElseThrow(() -&gt; new EntityNotFoundException(&quot;no user found for &quot; + username));</span>
+
+<span class="fc" id="L64">        user.setEmail(userData.email());</span>
+<span class="fc" id="L65">        user.setDisplayName(userData.displayName());</span>
+
+<span class="fc" id="L67">        List&lt;Address&gt; newAddressEntities = userData.addresses().stream()</span>
+<span class="fc" id="L68">                .map(this::fromRecord)</span>
+<span class="fc" id="L69">                .toList();</span>
+
+<span class="fc" id="L71">        user.getAddresses().clear();</span>
+<span class="fc" id="L72">        user.getAddresses().addAll(newAddressEntities);</span>
+<span class="fc" id="L73">        newAddressEntities.forEach(a -&gt; a.setUser(user));</span>
+
+<span class="fc" id="L75">        return toUserRecord.apply(user);</span>
+    }
+
+    @Transactional
+    public void saveNewUser(RegistrationRequest registration) {
+
+<span class="fc" id="L81">        String username = registration.username();</span>
+
+        try {
+<span class="fc bfc" id="L84" title="All 2 branches covered.">            if( ! URLEncoder.encode(username, UTF_8).equals(username)) {</span>
+<span class="fc" id="L85">                throw new IllegalArgumentException(&quot;Username must be url-safe&quot;);</span>
+            }
+
+<span class="fc bfc" id="L88" title="All 2 branches covered.">            if(userRepo.existsByUsername(username)) {</span>
+<span class="fc" id="L89">                throw new IllegalArgumentException(&quot;Username already exists &quot; + registration.username());</span>
+            }
+
+<span class="fc" id="L92">            userRepo.save(fromRegistration(registration));</span>
+        }
+<span class="fc" id="L94">        catch(ConstraintViolationException e) {</span>
+<span class="fc" id="L95">            String constraintMessage = &quot;User can't be saved: &quot; + e.getMessage();</span>
+<span class="pc" id="L96">            String list = e.getConstraintViolations().stream().map(v -&gt; v.toString()).collect(joining(&quot;, &quot;));</span>
+<span class="fc" id="L97">            constraintMessage += &quot; &quot; + list;</span>
+<span class="fc" id="L98">            LOG.error(constraintMessage, e);</span>
+<span class="fc" id="L99">            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, constraintMessage);</span>
+        }
+<span class="fc" id="L101">        catch(IllegalArgumentException e) {</span>
+<span class="fc" id="L102">            String constraintMessage = &quot;User can't be saved: &quot; + e.getMessage();</span>
+<span class="fc" id="L103">            LOG.error(constraintMessage, e);</span>
+<span class="fc" id="L104">            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, constraintMessage);</span>
+<span class="fc" id="L105">        }</span>
+<span class="fc" id="L106">    }</span>
+
+    @Transactional(readOnly = true)
+    public Page&lt;UserSummary&gt; getUserSummaries(Pageable page) {
+
+<span class="fc" id="L111">        return userRepo.loadSummaries(page);</span>
+    }
+
+    @Transactional(readOnly = true)
+    public org.thinkbigthings.zdd.dto.User getUser(String username) {
+
+<span class="fc" id="L117">        return userRepo.findByUsername(username)</span>
+<span class="fc" id="L118">                .map(toUserRecord)</span>
+<span class="pc" id="L119">                .orElseThrow(() -&gt; new EntityNotFoundException(&quot;no user found for &quot; + username));</span>
+    }
+
+    public User fromRegistration(RegistrationRequest registration) {
+
+<span class="fc" id="L124">        var user = new User(registration.username(), registration.username());</span>
+
+<span class="fc" id="L126">        user.setDisplayName(registration.username());</span>
+<span class="fc" id="L127">        user.setEmail(registration.email());</span>
+<span class="fc" id="L128">        user.setRegistrationTime(Instant.now());</span>
+<span class="fc" id="L129">        user.setEnabled(true);</span>
+<span class="fc" id="L130">        user.setPassword(passwordEncoder.encode(registration.plainTextPassword()));</span>
+<span class="fc" id="L131">        user.getRoles().add(Role.USER);</span>
+
+<span class="fc" id="L133">        user.setSearchConfig(new SearchConfig());</span>
+<span class="fc" id="L134">        user.getSearchConfig().setUser(user);</span>
+
+<span class="fc" id="L136">        return user;</span>
+    }
+
+    public Address fromRecord(AddressRecord addressData) {
+
+<span class="fc" id="L141">        var address = new Address();</span>
+
+<span class="fc" id="L143">        address.setLine1(addressData.line1());</span>
+<span class="fc" id="L144">        address.setCity(addressData.city());</span>
+<span class="fc" id="L145">        address.setState(addressData.state());</span>
+<span class="fc" id="L146">        address.setZip(addressData.zip());</span>
+
+<span class="fc" id="L148">        return address;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

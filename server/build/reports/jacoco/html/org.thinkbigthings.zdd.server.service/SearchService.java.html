@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SearchService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">server</a> &gt; <a href="index.source.html" class="el_package">org.thinkbigthings.zdd.server.service</a> &gt; <span class="el_source">SearchService.java</span></div><h1>SearchService.java</h1><pre class="source lang-java linenums">package org.thinkbigthings.zdd.server.service;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.thinkbigthings.zdd.dto.SearchItemsInStores;
+import org.thinkbigthings.zdd.server.mapper.dtotoentity.SavedSearchRecordToEntity;
+import org.thinkbigthings.zdd.server.mapper.entitytodto.ItemMapper;
+import org.thinkbigthings.zdd.server.mapper.entitytospec.SearchConfigToSpec;
+import org.thinkbigthings.zdd.server.mapper.entitytospec.SearchItemToSpec;
+import org.thinkbigthings.zdd.server.mapper.entitytospec.StoreNamesToSpec;
+import org.thinkbigthings.zdd.server.repository.SearchConfigRepository;
+import org.thinkbigthings.zdd.server.repository.StoreItemRepository;
+import org.thinkbigthings.zdd.server.scraper.keystone.Item;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.thinkbigthings.zdd.server.mapper.entitytospec.StoreNamesToSpec.TRUE;
+
+
+@Service
+public class SearchService {
+
+<span class="fc" id="L27">    private static Logger LOG = LoggerFactory.getLogger(SearchService.class);</span>
+
+<span class="fc" id="L29">    private SearchConfigToSpec searchConfigToSpec = new SearchConfigToSpec();</span>
+<span class="fc" id="L30">    private SavedSearchRecordToEntity dtoToEntity = new SavedSearchRecordToEntity();</span>
+<span class="fc" id="L31">    private SearchItemToSpec searchItemEntityToSpec = new SearchItemToSpec();</span>
+<span class="fc" id="L32">    private StoreNamesToSpec storeNamesToSpec = new StoreNamesToSpec();</span>
+<span class="fc" id="L33">    private ItemMapper toItemDto = new ItemMapper();</span>
+
+    private SearchConfigRepository searchRepo;
+    private StoreItemRepository itemRepo;
+
+<span class="fc" id="L38">    public SearchService(SearchConfigRepository repo, StoreItemRepository storeItemRepo) {</span>
+<span class="fc" id="L39">        this.searchRepo = repo;</span>
+<span class="fc" id="L40">        this.itemRepo = storeItemRepo;</span>
+<span class="fc" id="L41">    }</span>
+
+    @Transactional(readOnly = true)
+    public List&lt;Item&gt; search(String username) {
+
+<span class="fc" id="L46">        var items = searchRepo.findActiveByUsername(username)</span>
+<span class="fc" id="L47">                .map(searchConfigToSpec)</span>
+<span class="fc" id="L48">                .map(itemRepo::findAll)</span>
+<span class="fc" id="L49">                .orElse(new ArrayList&lt;&gt;());</span>
+
+<span class="fc" id="L51">        return items.stream().map(toItemDto).toList();</span>
+    }
+
+    /**
+     * This is for users to test out their searches,
+     * it's like an alert search but doesn't limit items by date added.
+     *
+     * @param userSearches
+     * @return
+     */
+    @Transactional(readOnly = true)
+    public List&lt;Item&gt; search(SearchItemsInStores userSearches) {
+
+<span class="fc" id="L64">        var itemsSearch = userSearches.searches().stream()</span>
+<span class="fc" id="L65">                .map(dtoToEntity)</span>
+<span class="fc" id="L66">                .map(searchItemEntityToSpec)</span>
+<span class="fc" id="L67">                .reduce(Specification::or)</span>
+<span class="fc" id="L68">                .orElse(TRUE);</span>
+
+<span class="fc" id="L70">        var byStore = storeNamesToSpec.apply(userSearches.storeNames());</span>
+
+<span class="fc" id="L72">        var results = itemRepo.findAll(itemsSearch.and(byStore));</span>
+
+<span class="fc" id="L74">        return results.stream()</span>
+<span class="fc" id="L75">                .map(toItemDto)</span>
+<span class="fc" id="L76">                .toList();</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

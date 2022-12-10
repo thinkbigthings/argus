@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.thinkbigthings.zdd.server.mapper.entitytodto.OperatorToStringMapperTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2022-12-10T20:44:20" hostname="MAC-jyoung.local" time="0.016">
+  <properties/>
+  <testcase name="[1] op=LT" classname="org.thinkbigthings.zdd.server.mapper.entitytodto.OperatorToStringMapperTest" time="0.012"/>
+  <testcase name="[2] op=LTE" classname="org.thinkbigthings.zdd.server.mapper.entitytodto.OperatorToStringMapperTest" time="0.0"/>
+  <testcase name="[3] op=EQ" classname="org.thinkbigthings.zdd.server.mapper.entitytodto.OperatorToStringMapperTest" time="0.001"/>
+  <testcase name="[4] op=GTE" classname="org.thinkbigthings.zdd.server.mapper.entitytodto.OperatorToStringMapperTest" time="0.0"/>
+  <testcase name="[5] op=GT" classname="org.thinkbigthings.zdd.server.mapper.entitytodto.OperatorToStringMapperTest" time="0.0"/>
+  <testcase name="testOperatorBadStrings()" classname="org.thinkbigthings.zdd.server.mapper.entitytodto.OperatorToStringMapperTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

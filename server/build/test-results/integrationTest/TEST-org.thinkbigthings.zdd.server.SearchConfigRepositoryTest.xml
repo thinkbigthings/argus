@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.thinkbigthings.zdd.server.SearchConfigRepositoryTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-12-10T20:44:08" hostname="MAC-jyoung.local" time="0.005">
+  <properties/>
+  <testcase name="testNPlusOneWithJoinFetch()" classname="org.thinkbigthings.zdd.server.SearchConfigRepositoryTest" time="0.005"/>
+  <system-out><![CDATA[2022-12-10T15:44:08.414-05:00  INFO 63538 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [org.thinkbigthings.zdd.server.SearchConfigRepositoryTest]: SearchConfigRepositoryTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2022-12-10T15:44:08.415-05:00  INFO 63538 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration org.thinkbigthings.zdd.server.Application for test class org.thinkbigthings.zdd.server.SearchConfigRepositoryTest
+2022-12-10T15:44:08.419-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : select u1_0.id from app_user u1_0 where u1_0.username=? fetch first ? rows only
+2022-12-10T15:44:08.496-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : insert into app_user (display_name, email, enabled, password, registration_time, username) values (?, ?, ?, ?, ?, ?)
+2022-12-10T15:44:08.498-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : insert into search_config (active, last_search, user_id) values (?, ?, ?)
+2022-12-10T15:44:08.500-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : insert into user_role (user_id, role_id) values (?, ?)
+2022-12-10T15:44:08.505-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.IntegrationTest           : 
+2022-12-10T15:44:08.505-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.IntegrationTest           : =======================================================================================
+2022-12-10T15:44:08.505-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.IntegrationTest           : Executing test testNPlusOneWithJoinFetch()
+2022-12-10T15:44:08.505-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.IntegrationTest           : using web server port 52866
+2022-12-10T15:44:08.505-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.IntegrationTest           : TestContainer jdbc url: jdbc:postgresql://localhost:5432/test?autosave=conservative&loggerLevel=OFF
+2022-12-10T15:44:08.505-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.IntegrationTest           : TestContainer username: test
+2022-12-10T15:44:08.505-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.IntegrationTest           : TestContainer password: test
+2022-12-10T15:44:08.505-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.IntegrationTest           : 
+2022-12-10T15:44:08.505-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : select s1_0.user_id,s1_0.active,s1_0.last_search,s2_0.search_config_id,s2_1.id,s2_1.name,s2_1.website,s3_0.search_config_id,s3_0.id from search_config s1_0 left join (search_config_store s2_0 join store s2_1 on s2_1.id=s2_0.store_id) on s1_0.user_id=s2_0.search_config_id left join saved_search s3_0 on s1_0.user_id=s3_0.search_config_id join app_user u1_0 on u1_0.id=s1_0.user_id where u1_0.username=?
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

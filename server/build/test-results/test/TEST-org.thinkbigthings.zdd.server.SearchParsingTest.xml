@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.thinkbigthings.zdd.server.SearchParsingTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2022-12-10T20:44:19" hostname="MAC-jyoung.local" time="0.101">
+  <properties/>
+  <testcase name="testParseSearchJson()" classname="org.thinkbigthings.zdd.server.SearchParsingTest" time="0.08"/>
+  <testcase name="testWriteSearchJson()" classname="org.thinkbigthings.zdd.server.SearchParsingTest" time="0.021"/>
+  <system-out><![CDATA[SearchItemsInStores[storeNames=[Keystone Devon], searches=[ItemSearch[parameters=[SearchParameter[field=strain, operator==, value=Cherry Diesel]]], ItemSearch[parameters=[SearchParameter[field=thcPercent, operator=>=, value=20], SearchParameter[field=weightGrams, operator==, value=1]]]]]
+{"storeNames":["Keystone Devon"],"searches":[{"parameters":[{"field":"strain","operator":"=","value":"Cherry Diesel"}]},{"parameters":[{"field":"thcPercent","operator":">=","value":"20"},{"field":"weightGrams","operator":"=","value":"1"}]}]}
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

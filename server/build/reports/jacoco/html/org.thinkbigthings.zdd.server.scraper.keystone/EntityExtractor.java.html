@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EntityExtractor.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">server</a> &gt; <a href="index.source.html" class="el_package">org.thinkbigthings.zdd.server.scraper.keystone</a> &gt; <span class="el_source">EntityExtractor.java</span></div><h1>EntityExtractor.java</h1><pre class="source lang-java linenums">package org.thinkbigthings.zdd.server.scraper.keystone;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.safety.Safelist;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+import org.thinkbigthings.zdd.server.entity.StoreItem;
+import org.thinkbigthings.zdd.server.entity.Subspecies;
+
+
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.*;
+
+@Component
+public class EntityExtractor {
+
+<span class="fc" id="L25">    private static Logger LOG = LoggerFactory.getLogger(EntityExtractor.class);</span>
+
+    // object mapper is thread safe
+<span class="fc" id="L28">    private ObjectMapper mapper = new ObjectMapper();</span>
+
+<span class="fc" id="L30">    private Map&lt;String, Subspecies&gt; labelToEnum = new HashMap&lt;&gt;();</span>
+
+<span class="fc" id="L32">    private TypeReference&lt;List&lt;HashMap&lt;String, String&gt;&gt;&gt; parseType = new TypeReference&lt;&gt;() {};</span>
+
+<span class="fc" id="L34">    public EntityExtractor() {</span>
+<span class="fc" id="L35">        labelToEnum.put(&quot;Sativa&quot;,        Subspecies.SATIVA);</span>
+<span class="fc" id="L36">        labelToEnum.put(&quot;Sative-Hybrid&quot;, Subspecies.SATIVA_HYBRID);</span>
+<span class="fc" id="L37">        labelToEnum.put(&quot;Hybrid&quot;,        Subspecies.HYBRID);</span>
+<span class="fc" id="L38">        labelToEnum.put(&quot;Indica-Hybrid&quot;, Subspecies.INDICA_HYBRID);</span>
+<span class="fc" id="L39">        labelToEnum.put(&quot;Indica&quot;,        Subspecies.INDICA);</span>
+<span class="fc" id="L40">        labelToEnum.put(&quot;High-CBD&quot;,      Subspecies.HIGH_CBD);</span>
+<span class="fc" id="L41">    }</span>
+
+    public Optional&lt;BigDecimal&gt; parsePercentageNumber(String percentage) {
+<span class="fc bfc" id="L44" title="All 2 branches covered.">        if(percentage.isBlank()) {</span>
+<span class="fc" id="L45">            return Optional.of(BigDecimal.ZERO);</span>
+        }
+        try {
+            // DecimalFormat is not thread safe
+<span class="fc" id="L49">            DecimalFormat decimalFormat = new DecimalFormat(&quot;0.0#%&quot;);</span>
+<span class="fc" id="L50">            decimalFormat.setParseBigDecimal(true);</span>
+<span class="fc" id="L51">            decimalFormat.setMaximumFractionDigits(3);</span>
+<span class="fc" id="L52">            decimalFormat.setMultiplier(1); // so the number comes out in units of percent</span>
+<span class="fc" id="L53">            return Optional.of((BigDecimal) decimalFormat.parse(percentage));</span>
+        }
+<span class="nc" id="L55">        catch (ParseException e) {</span>
+<span class="nc" id="L56">            LOG.info(&quot;Could not parse percentage: &quot; + percentage);</span>
+<span class="nc" id="L57">            return Optional.empty();</span>
+        }
+    }
+
+    public BigDecimal extractPercent(String key, HashMap&lt;String, String&gt; item) {
+<span class="fc" id="L62">        return parsePercentageNumber(item.get(key)).orElse(BigDecimal.ZERO);</span>
+    }
+
+    public String extractStrainFromStrainImg(String strainWithTags) {
+<span class="fc" id="L66">        return Jsoup.clean(strainWithTags, Safelist.none()).trim();</span>
+    }
+
+    public Subspecies extractSubspeciesFromStrainImg(String strain) {
+
+<span class="fc" id="L71">        Document doc = Jsoup.parseBodyFragment(strain);</span>
+
+<span class="fc" id="L73">        return doc.getElementsByTag(&quot;img&quot;).stream()</span>
+<span class="fc" id="L74">                .map(element -&gt; element.attr(&quot;alt&quot;))</span>
+<span class="fc" id="L75">                .filter(alt -&gt; labelToEnum.containsKey(alt))</span>
+<span class="fc" id="L76">                .map(labelToEnum::get)</span>
+<span class="fc" id="L77">                .findFirst()</span>
+<span class="fc" id="L78">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Could not extract subspecies from Strain img&quot;));</span>
+    }
+
+    /**
+     * price is a required field, so throw an exception if it doesn't parse (e.g. the field is empty).
+     *
+     * @param priceDollars
+     * @return the dollars portion of a price decimal string.
+     */
+    public Long parsePrice(String priceDollars) {
+        try {
+            // DecimalFormat is not thread safe
+<span class="fc" id="L90">            NumberFormat format = NumberFormat.getCurrencyInstance();</span>
+<span class="fc" id="L91">            format.setParseIntegerOnly(true);</span>
+<span class="fc" id="L92">            return (Long) format.parse(priceDollars);</span>
+        }
+<span class="fc" id="L94">        catch(ParseException e) {</span>
+<span class="fc" id="L95">            throw new IllegalArgumentException(&quot;Could not parse price from &quot; + priceDollars, e);</span>
+        }
+    }
+
+    /**
+     * weight is a required field, so throw an exception if it doesn't parse (e.g. the field is empty).
+     *
+     * @param weight in grams
+     * @return the numeric value in grams.
+     */
+    public BigDecimal parseGrams(String weight) {
+        try {
+            // DecimalFormat is not thread safe
+<span class="fc" id="L108">            DecimalFormat decimalFormat = new DecimalFormat(&quot;0.0#g&quot;);</span>
+<span class="fc" id="L109">            decimalFormat.setParseBigDecimal(true);</span>
+<span class="fc" id="L110">            return (BigDecimal) decimalFormat.parse(weight);</span>
+        }
+<span class="nc" id="L112">        catch(ParseException e) {</span>
+<span class="nc" id="L113">            throw new IllegalArgumentException(&quot;Could not parse weight from &quot; + weight, e);</span>
+        }
+    }
+
+    public Optional&lt;StoreItem&gt; extractItem(HashMap&lt;String, String&gt; item) {
+
+        try {
+<span class="fc" id="L120">            StoreItem storeItem = new StoreItem();</span>
+
+<span class="fc" id="L122">            storeItem.setSubspecies(extractSubspeciesFromStrainImg(item.get(&quot;strain&quot;)));</span>
+<span class="fc" id="L123">            storeItem.setStrain(extractStrainFromStrainImg(item.get(&quot;strain&quot;)));</span>
+<span class="fc" id="L124">            storeItem.setThcPercent(parsePercentageNumber(item.get(&quot;thc&quot;)).get());</span>
+<span class="fc" id="L125">            storeItem.setCbdPercent(parsePercentageNumber(item.get(&quot;cbd&quot;)).get());</span>
+<span class="fc" id="L126">            storeItem.setBisabololPercent(extractPercent(&quot;bisabolol&quot;, item));</span>
+<span class="fc" id="L127">            storeItem.setCaryophyllenePercent(extractPercent(&quot;caryophyllene&quot;, item));</span>
+<span class="fc" id="L128">            storeItem.setHumulenePercent(extractPercent(&quot;humulene&quot;, item));</span>
+<span class="fc" id="L129">            storeItem.setLimonenePercent(extractPercent(&quot;limonene&quot;, item));</span>
+<span class="fc" id="L130">            storeItem.setLinaloolPercent(extractPercent(&quot;linalool&quot;, item));</span>
+<span class="fc" id="L131">            storeItem.setMyrcenePercent(extractPercent(&quot;myrcene&quot;, item));</span>
+<span class="fc" id="L132">            storeItem.setPinenePercent(extractPercent(&quot;pinene&quot;, item));</span>
+<span class="fc" id="L133">            storeItem.setTerpinolenePercent(extractPercent(&quot;terpinolene&quot;, item));</span>
+<span class="fc" id="L134">            storeItem.setPriceDollars(parsePrice(item.get(&quot;price&quot;)));</span>
+<span class="fc" id="L135">            storeItem.setVendor(item.get(&quot;vendor&quot;));</span>
+<span class="fc" id="L136">            storeItem.setWeightGrams(parseGrams(item.get(&quot;wt&quot;)));</span>
+
+<span class="fc" id="L138">            return Optional.of(storeItem);</span>
+        }
+<span class="fc" id="L140">        catch(Exception e) {</span>
+<span class="fc" id="L141">            System.out.println(&quot;Couldn't parse item &quot; + item + &quot;, exception message: &quot; + e.getMessage());</span>
+<span class="fc" id="L142">            return Optional.empty();</span>
+        }
+    }
+
+    public List&lt;StoreItem&gt; extractItems(String unparsedData) {
+
+        try {
+<span class="fc" id="L149">            var parser = mapper.createParser(unparsedData);</span>
+<span class="fc" id="L150">            var items = mapper.readValue(parser, parseType);</span>
+<span class="fc" id="L151">            return items.stream()</span>
+<span class="fc" id="L152">                    .flatMap(item -&gt; extractItem(item).stream())</span>
+<span class="fc" id="L153">                    .toList();</span>
+        }
+<span class="nc" id="L155">        catch (IOException e) {</span>
+<span class="nc" id="L156">            throw new RuntimeException(e);</span>
+        }
+
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

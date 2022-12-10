@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Application.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">server</a> &gt; <a href="index.source.html" class="el_package">org.thinkbigthings.zdd.server</a> &gt; <span class="el_source">Application.java</span></div><h1>Application.java</h1><pre class="source lang-java linenums">package org.thinkbigthings.zdd.server;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
+import org.springframework.context.ConfigurableApplicationContext;
+
+import jakarta.annotation.PreDestroy;
+
+import static java.util.Arrays.asList;
+
+@ConfigurationPropertiesScan
+@SpringBootApplication
+<span class="nc" id="L17">public class Application {</span>
+
+<span class="fc" id="L19">    private static Logger LOG = LoggerFactory.getLogger(Application.class);</span>
+
+    public static void main(String[] args) {
+
+<span class="nc" id="L23">        ConfigurableApplicationContext context = SpringApplication.run(Application.class, args);</span>
+
+<span class="nc bnc" id="L25" title="All 2 branches missed.">        if(hasProfile(context, &quot;migration&quot;)) {</span>
+<span class="nc" id="L26">            LOG.info(&quot;This is a migration-only profile, shutting down.&quot;);</span>
+            // call context close, otherwise something is making it wait 60 seconds
+            // don't necessarily need System.exit, but that would also do the job immediately
+<span class="nc" id="L29">            context.close();</span>
+        }
+<span class="nc" id="L31">    }</span>
+
+    @PreDestroy
+    protected static void preDestroy() {
+<span class="nc" id="L35">        LOG.info(&quot;Application is exiting.&quot;);</span>
+<span class="nc" id="L36">    }</span>
+
+    private static boolean hasProfile(ConfigurableApplicationContext context, String profile) {
+<span class="nc" id="L39">        return asList(context.getEnvironment().getActiveProfiles()).contains(profile);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - AdminIntegrationTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>AdminIntegrationTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/org.thinkbigthings.zdd.server.html">org.thinkbigthings.zdd.server</a> &gt; AdminIntegrationTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">2</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.527s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Method name</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">Admin list users</td>
+<td class="success">adminListUsers()</td>
+<td class="success">0.281s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">Health Check</td>
+<td class="success">testHealth()</td>
+<td class="success">0.246s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>15:43:57.389 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [AdminIntegrationTest]: using SpringBootContextLoader
+15:43:57.393 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [org.thinkbigthings.zdd.server.AdminIntegrationTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+15:43:57.393 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [org.thinkbigthings.zdd.server.AdminIntegrationTest]: AdminIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+15:43:57.422 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using ContextCustomizers for test class [AdminIntegrationTest]: [DisableObservabilityContextCustomizer, PropertyMappingContextCustomizer, Customizer, ExcludeFilterContextCustomizer, DuplicateJsonObjectContextCustomizer, MockitoContextCustomizer, TestRestTemplateContextCustomizer, DynamicPropertiesContextCustomizer]
+15:43:57.509 [Test worker] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider - Identified candidate component class: file [/Users/jasonyoung/dev/argus/server/build/classes/java/main/org/thinkbigthings/zdd/server/Application.class]
+15:43:57.517 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration org.thinkbigthings.zdd.server.Application for test class org.thinkbigthings.zdd.server.AdminIntegrationTest
+15:43:57.630 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners for test class [AdminIntegrationTest]: [ServletTestExecutionListener, DirtiesContextBeforeModesTestExecutionListener, ApplicationEventsTestExecutionListener, MockitoTestExecutionListener, DependencyInjectionTestExecutionListener, DirtiesContextTestExecutionListener, TransactionalTestExecutionListener, SqlScriptsTestExecutionListener, EventPublishingTestExecutionListener, RestDocsTestExecutionListener, MockRestServiceServerResetTestExecutionListener, MockMvcPrintOnlyOnFailureTestExecutionListener, WebDriverTestExecutionListener, MockWebServiceServerTestExecutionListener, ResetMocksTestExecutionListener]
+15:43:57.631 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: class [AdminIntegrationTest], class annotated with @DirtiesContext [false] with mode [null]
+
+
+ ______                   ______                        _    _
+|___  /                   |  _  \                      | |  (_)
+   / /   ___  _ __  ___   | | | | ___ __      __ _ __  | |_  _  _ __ ___    ___
+  / /   / _ \| '__|/ _ \  | | | |/ _ \\ \ /\ / /| '_ \ | __|| || '_ ` _ \  / _ \
+./ /___|  __/| |  | (_) | | |/ /| (_) |\ V  V / | | | || |_ | || | | | | ||  __/
+\_____/ \___||_|   \___/  |___/  \___/  \_/\_/  |_| |_| \__||_||_| |_| |_| \___|
+
+
+2022-12-10T15:43:58.012-05:00  INFO 63538 --- [    Test worker] o.t.d.DockerClientProviderStrategy       : Loaded org.testcontainers.dockerclient.UnixSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+2022-12-10T15:43:58.612-05:00  INFO 63538 --- [    Test worker] o.t.d.DockerClientProviderStrategy       : Found Docker environment with local Unix socket (unix:///var/run/docker.sock)
+2022-12-10T15:43:58.613-05:00  INFO 63538 --- [    Test worker] org.testcontainers.DockerClientFactory   : Docker host IP address is localhost
+2022-12-10T15:43:58.662-05:00  INFO 63538 --- [    Test worker] org.testcontainers.DockerClientFactory   : Connected to docker: 
+  Server Version: 20.10.13
+  API Version: 1.41
+  Operating System: Docker Desktop
+  Total Memory: 7951 MB
+2022-12-10T15:43:58.665-05:00  INFO 63538 --- [    Test worker] o.t.utility.ImageNameSubstitutor         : Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+2022-12-10T15:43:58.921-05:00  INFO 63538 --- [    Test worker] o.t.utility.RegistryAuthLocator          : Credential helper/store (docker-credential-desktop) does not have credentials for index.docker.io
+2022-12-10T15:43:59.362-05:00  INFO 63538 --- [    Test worker] org.testcontainers.DockerClientFactory   : Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+2022-12-10T15:43:59.362-05:00  INFO 63538 --- [    Test worker] org.testcontainers.DockerClientFactory   : Checking the system...
+2022-12-10T15:43:59.363-05:00  INFO 63538 --- [    Test worker] org.testcontainers.DockerClientFactory   : ✔︎ Docker server version should be at least 1.6.0
+2022-12-10T15:43:59.456-05:00  INFO 63538 --- [    Test worker] org.testcontainers.DockerClientFactory   : ✔︎ Docker environment should have more than 2GB free disk space
+2022-12-10T15:43:59.466-05:00  INFO 63538 --- [    Test worker] &#x1f433; [postgres:12]                         : Creating container for image: postgres:12
+2022-12-10T15:43:59.498-05:00  INFO 63538 --- [    Test worker] &#x1f433; [postgres:12]                         : Reusing container with ID: 775c2891c4ef701e7e18e843360c39461129a8c635ac8c96e14e09ee4fc08ca6 and hash: 4452477de10dc53bf592f81c48954df05b2838c3
+2022-12-10T15:43:59.499-05:00  INFO 63538 --- [    Test worker] &#x1f433; [postgres:12]                         : Reusing existing container (775c2891c4ef701e7e18e843360c39461129a8c635ac8c96e14e09ee4fc08ca6) and not creating a new one
+2022-12-10T15:43:59.521-05:00  INFO 63538 --- [    Test worker] &#x1f433; [postgres:12]                         : Container postgres:12 started in PT0.065067S
+2022-12-10T15:43:59.528-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.AdminIntegrationTest      : Starting AdminIntegrationTest using Java 17.0.2 with PID 63538 (started by jasonyoung in /Users/jasonyoung/dev/argus/server)
+2022-12-10T15:43:59.529-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.AdminIntegrationTest      : No active profile set, falling back to 1 default profile: &quot;default&quot;
+2022-12-10T15:44:00.283-05:00  WARN 63538 --- [    Test worker] ocalVariableTableParameterNameDiscoverer : Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: org.springframework.session.config.annotation.web.http.SpringHttpSessionConfiguration
+2022-12-10T15:44:00.320-05:00  INFO 63538 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-12-10T15:44:00.373-05:00  INFO 63538 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 45 ms. Found 4 JPA repository interfaces.
+2022-12-10T15:44:00.975-05:00  INFO 63538 --- [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 0 (https)
+2022-12-10T15:44:00.988-05:00  INFO 63538 --- [    Test worker] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-12-10T15:44:00.989-05:00  INFO 63538 --- [    Test worker] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.1]
+2022-12-10T15:44:01.075-05:00  INFO 63538 --- [    Test worker] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-12-10T15:44:01.075-05:00  INFO 63538 --- [    Test worker] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1519 ms
+2022-12-10T15:44:01.259-05:00  INFO 63538 --- [    Test worker] o.f.c.internal.license.VersionPrinter    : Flyway Community Edition 9.8.3 by Redgate
+2022-12-10T15:44:01.259-05:00  INFO 63538 --- [    Test worker] o.f.c.internal.license.VersionPrinter    : See what's new here: https://flywaydb.org/documentation/learnmore/releaseNotes#9.8.3
+2022-12-10T15:44:01.259-05:00  INFO 63538 --- [    Test worker] o.f.c.internal.license.VersionPrinter    : 
+2022-12-10T15:44:01.271-05:00  INFO 63538 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2022-12-10T15:44:01.398-05:00  INFO 63538 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@25ae8911
+2022-12-10T15:44:01.400-05:00  INFO 63538 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2022-12-10T15:44:01.428-05:00  INFO 63538 --- [    Test worker] o.f.c.i.database.base.BaseDatabaseType   : Database: jdbc:postgresql://localhost:5432/test (PostgreSQL 12.10)
+2022-12-10T15:44:01.477-05:00  INFO 63538 --- [    Test worker] o.f.c.i.command.clean.CleanExecutor      : Successfully dropped pre-schema database level objects (execution time 00:00.000s)
+2022-12-10T15:44:01.531-05:00  INFO 63538 --- [    Test worker] o.f.c.i.command.clean.CleanExecutor      : Successfully cleaned schema &quot;public&quot; (execution time 00:00.052s)
+2022-12-10T15:44:01.552-05:00  INFO 63538 --- [    Test worker] o.f.c.i.command.clean.CleanExecutor      : Successfully cleaned schema &quot;public&quot; (execution time 00:00.020s)
+2022-12-10T15:44:01.552-05:00  INFO 63538 --- [    Test worker] o.f.c.i.command.clean.CleanExecutor      : Successfully dropped post-schema database level objects (execution time 00:00.000s)
+2022-12-10T15:44:01.592-05:00  INFO 63538 --- [    Test worker] o.f.core.internal.command.DbValidate     : Successfully validated 6 migrations (execution time 00:00.020s)
+2022-12-10T15:44:01.610-05:00  INFO 63538 --- [    Test worker] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table &quot;public&quot;.&quot;flyway_schema_history&quot; ...
+2022-12-10T15:44:01.642-05:00  INFO 63538 --- [    Test worker] o.f.core.internal.command.DbMigrate      : Current version of schema &quot;public&quot;: &lt;&lt; Empty Schema &gt;&gt;
+2022-12-10T15:44:01.650-05:00  INFO 63538 --- [    Test worker] o.f.core.internal.command.DbMigrate      : Migrating schema &quot;public&quot; to version &quot;1 - users&quot;
+2022-12-10T15:44:01.689-05:00  INFO 63538 --- [    Test worker] o.f.core.internal.command.DbMigrate      : Migrating schema &quot;public&quot; to version &quot;2 - user roles&quot;
+2022-12-10T15:44:01.720-05:00  INFO 63538 --- [    Test worker] o.f.core.internal.command.DbMigrate      : Migrating schema &quot;public&quot; to version &quot;3 - addresses&quot;
+2022-12-10T15:44:01.747-05:00  INFO 63538 --- [    Test worker] o.f.core.internal.command.DbMigrate      : Migrating schema &quot;public&quot; to version &quot;4 - security spring session&quot;
+2022-12-10T15:44:01.775-05:00  INFO 63538 --- [    Test worker] o.f.core.internal.command.DbMigrate      : Migrating schema &quot;public&quot; to version &quot;5 - store and items&quot;
+2022-12-10T15:44:01.809-05:00  INFO 63538 --- [    Test worker] o.f.core.internal.command.DbMigrate      : Migrating schema &quot;public&quot; to version &quot;6 - search&quot;
+2022-12-10T15:44:01.843-05:00  INFO 63538 --- [    Test worker] o.f.core.internal.command.DbMigrate      : Successfully applied 6 migrations to schema &quot;public&quot;, now at version v6 (execution time 00:00.207s)
+2022-12-10T15:44:01.930-05:00  INFO 63538 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-12-10T15:44:02.001-05:00  INFO 63538 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.1.5.Final
+2022-12-10T15:44:02.191-05:00  WARN 63538 --- [    Test worker] org.hibernate.orm.deprecation            : HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2022-12-10T15:44:02.383-05:00  INFO 63538 --- [    Test worker] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2022-12-10T15:44:03.384-05:00  INFO 63538 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-12-10T15:44:03.393-05:00  INFO 63538 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-12-10T15:44:04.637-05:00  INFO 63538 --- [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 52866 (https) with context path ''
+2022-12-10T15:44:04.669-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.AdminIntegrationTest      : Started AdminIntegrationTest in 6.996 seconds (process running for 13.286)
+2022-12-10T15:44:04.732-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.AdminIntegrationTest      : 
+2022-12-10T15:44:04.732-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.AdminIntegrationTest      : =======================================================================================
+2022-12-10T15:44:04.732-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.AdminIntegrationTest      : Creating test data
+2022-12-10T15:44:04.732-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.AdminIntegrationTest      : 
+2022-12-10T15:44:04.939-05:00  INFO 63538 --- [o-auto-1-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-12-10T15:44:04.939-05:00  INFO 63538 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-12-10T15:44:05.192-05:00  INFO 63538 --- [o-auto-1-exec-1] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 15 endpoint(s) beneath base path '/actuator'
+2022-12-10T15:44:05.300-05:00  INFO 63538 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 361 ms
+2022-12-10T15:44:05.434-05:00  INFO 63538 --- [o-auto-1-exec-1] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3d55944a, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@10cc8c56, org.springframework.security.web.context.SecurityContextPersistenceFilter@25387cca, org.springframework.security.web.header.HeaderWriterFilter@23fdf39c, org.springframework.security.web.authentication.logout.LogoutFilter@4c93c058, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@4b2cd30d, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5d8bd5a4, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3b38bb1c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@356eaf3c, org.springframework.security.web.access.ExceptionTranslationFilter@1f27df0f, org.springframework.security.web.access.intercept.AuthorizationFilter@5d1bf835]
+2022-12-10T15:44:05.711-05:00 DEBUG 63538 --- [o-auto-1-exec-1] org.hibernate.SQL                        : select u1_0.id,u1_0.display_name,u1_0.email,u1_0.enabled,u1_0.password,u1_0.registration_time,r1_0.user_id,r1_0.role_id,u1_0.username from app_user u1_0 join user_role r1_0 on u1_0.id=r1_0.user_id where u1_0.username=?
+2022-12-10T15:44:05.732-05:00 DEBUG 63538 --- [o-auto-1-exec-1] org.hibernate.SQL                        : select s1_0.user_id,s1_0.active,s1_0.last_search from search_config s1_0 where s1_0.user_id=?
+2022-12-10T15:44:05.870-05:00 DEBUG 63538 --- [o-auto-1-exec-1] org.hibernate.SQL                        : select u1_0.id,u1_0.display_name,u1_0.email,u1_0.enabled,u1_0.password,u1_0.registration_time,u1_0.username from app_user u1_0 where u1_0.username=?
+2022-12-10T15:44:05.874-05:00 DEBUG 63538 --- [o-auto-1-exec-1] org.hibernate.SQL                        : select s1_0.user_id,s1_0.active,s1_0.last_search from search_config s1_0 where s1_0.user_id=?
+2022-12-10T15:44:05.880-05:00 DEBUG 63538 --- [o-auto-1-exec-1] org.hibernate.SQL                        : select r1_0.user_id,r1_0.role_id from user_role r1_0 where r1_0.user_id=?
+2022-12-10T15:44:05.886-05:00 DEBUG 63538 --- [o-auto-1-exec-1] org.hibernate.SQL                        : select a1_0.user_id,a1_0.id,a1_0.city,a1_0.line1,a1_0.state,a1_0.zip from address a1_0 where a1_0.user_id=?
+2022-12-10T15:44:05.889-05:00 DEBUG 63538 --- [o-auto-1-exec-1] org.hibernate.SQL                        : select s1_0.principal_name,s1_0.primary_id,s1_0.session_id from spring_session s1_0 where s1_0.principal_name=?
+2022-12-10T15:44:06.136-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.IntegrationTest           : 
+2022-12-10T15:44:06.137-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.IntegrationTest           : =======================================================================================
+2022-12-10T15:44:06.137-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.IntegrationTest           : Executing test Admin list users
+2022-12-10T15:44:06.137-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.IntegrationTest           : using web server port 52866
+2022-12-10T15:44:06.137-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.IntegrationTest           : TestContainer jdbc url: jdbc:postgresql://localhost:5432/test?autosave=conservative&amp;loggerLevel=OFF
+2022-12-10T15:44:06.137-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.IntegrationTest           : TestContainer username: test
+2022-12-10T15:44:06.137-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.IntegrationTest           : TestContainer password: test
+2022-12-10T15:44:06.137-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.IntegrationTest           : 
+2022-12-10T15:44:06.183-05:00 DEBUG 63538 --- [o-auto-1-exec-1] org.hibernate.SQL                        : select u1_0.username,u1_0.display_name from app_user u1_0 order by u1_0.username asc,u1_0.registration_time desc offset ? rows fetch first ? rows only
+2022-12-10T15:44:06.270-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.IntegrationTest           : 
+2022-12-10T15:44:06.270-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.IntegrationTest           : =======================================================================================
+2022-12-10T15:44:06.270-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.IntegrationTest           : Executing test Health Check
+2022-12-10T15:44:06.270-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.IntegrationTest           : using web server port 52866
+2022-12-10T15:44:06.270-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.IntegrationTest           : TestContainer jdbc url: jdbc:postgresql://localhost:5432/test?autosave=conservative&amp;loggerLevel=OFF
+2022-12-10T15:44:06.270-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.IntegrationTest           : TestContainer username: test
+2022-12-10T15:44:06.270-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.IntegrationTest           : TestContainer password: test
+2022-12-10T15:44:06.270-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.IntegrationTest           : 
+2022-12-10T15:44:06.317-05:00 DEBUG 63538 --- [o-auto-1-exec-1] org.hibernate.SQL                        : select u1_0.id,u1_0.display_name,u1_0.email,u1_0.enabled,u1_0.password,u1_0.registration_time,r1_0.user_id,r1_0.role_id,u1_0.username from app_user u1_0 join user_role r1_0 on u1_0.id=r1_0.user_id where u1_0.username=?
+2022-12-10T15:44:06.320-05:00 DEBUG 63538 --- [o-auto-1-exec-1] org.hibernate.SQL                        : select s1_0.user_id,s1_0.active,s1_0.last_search from search_config s1_0 where s1_0.user_id=?
+2022-12-10T15:44:06.405-05:00 DEBUG 63538 --- [o-auto-1-exec-1] org.hibernate.SQL                        : select u1_0.id,u1_0.display_name,u1_0.email,u1_0.enabled,u1_0.password,u1_0.registration_time,u1_0.username from app_user u1_0 where u1_0.username=?
+2022-12-10T15:44:06.408-05:00 DEBUG 63538 --- [o-auto-1-exec-1] org.hibernate.SQL                        : select s1_0.user_id,s1_0.active,s1_0.last_search from search_config s1_0 where s1_0.user_id=?
+2022-12-10T15:44:06.412-05:00 DEBUG 63538 --- [o-auto-1-exec-1] org.hibernate.SQL                        : select r1_0.user_id,r1_0.role_id from user_role r1_0 where r1_0.user_id=?
+2022-12-10T15:44:06.414-05:00 DEBUG 63538 --- [o-auto-1-exec-1] org.hibernate.SQL                        : select a1_0.user_id,a1_0.id,a1_0.city,a1_0.line1,a1_0.state,a1_0.zip from address a1_0 where a1_0.user_id=?
+2022-12-10T15:44:06.417-05:00 DEBUG 63538 --- [o-auto-1-exec-1] org.hibernate.SQL                        : select s1_0.principal_name,s1_0.primary_id,s1_0.session_id from spring_session s1_0 where s1_0.principal_name=?
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 7.4</a> at Dec 10, 2022, 3:44:13 PM</p>
+</div>
+</div>
+</body>
+</html>

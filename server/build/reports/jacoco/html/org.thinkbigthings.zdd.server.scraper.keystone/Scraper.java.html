@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Scraper.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">server</a> &gt; <a href="index.source.html" class="el_package">org.thinkbigthings.zdd.server.scraper.keystone</a> &gt; <span class="el_source">Scraper.java</span></div><h1>Scraper.java</h1><pre class="source lang-java linenums">package org.thinkbigthings.zdd.server.scraper.keystone;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectReader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+import org.thinkbigthings.zdd.server.entity.StoreItem;
+
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.time.Duration;
+import java.util.*;
+import java.util.stream.Stream;
+
+import static org.thinkbigthings.zdd.server.scraper.keystone.Functional.uncheck;
+
+@Component
+public class Scraper {
+
+<span class="fc" id="L24">    private static Logger LOG = LoggerFactory.getLogger(Scraper.class);</span>
+
+    // Thread-safe if configuration is before ANY read or write calls
+<span class="fc" id="L27">    private final ObjectMapper mapper = new ObjectMapper();</span>
+
+    // ObjectReader is immutable and thread safe
+<span class="fc" id="L30">    private final ObjectReader reader = mapper.reader();</span>
+
+    private EntityExtractor extractor;
+
+<span class="fc" id="L34">    public Scraper(EntityExtractor extractor) {</span>
+<span class="fc" id="L35">        this.extractor = extractor;</span>
+<span class="fc" id="L36">    }</span>
+
+    public List&lt;StoreItem&gt; scrape(String keystoneUrl) {
+
+<span class="nc" id="L40">        HttpClient client = HttpClient.newBuilder()</span>
+<span class="nc" id="L41">                .connectTimeout(Duration.ofSeconds(30))</span>
+<span class="nc" id="L42">                .followRedirects(HttpClient.Redirect.NORMAL)</span>
+<span class="nc" id="L43">                .build();</span>
+
+        try {
+
+<span class="nc" id="L47">            LOG.info(&quot;Scraping site: &quot; + keystoneUrl);</span>
+
+<span class="nc" id="L49">            HttpRequest request = HttpRequest.newBuilder(URI.create(keystoneUrl)).build();</span>
+
+<span class="nc" id="L51">            List&lt;String&gt; dataUrls = extractDataUrls(client.send(request, HttpResponse.BodyHandlers.ofLines()).body());</span>
+
+<span class="nc" id="L53">            return dataUrls.stream()</span>
+<span class="nc" id="L54">                    .map(this::createRequest)</span>
+<span class="nc" id="L55">                    .map(uncheck(uri -&gt; client.send(uri, HttpResponse.BodyHandlers.ofString()).body()))</span>
+<span class="nc" id="L56">                    .flatMap(dataContent -&gt; extractor.extractItems(dataContent).stream())</span>
+<span class="nc" id="L57">                    .toList();</span>
+        }
+<span class="nc" id="L59">        catch (InterruptedException | IOException | IllegalArgumentException e) {</span>
+<span class="nc" id="L60">            LOG.warn(&quot;W tore was not updated for url &quot; + keystoneUrl, e);</span>
+<span class="nc" id="L61">            return new ArrayList&lt;&gt;();</span>
+        }
+    }
+
+    private HttpRequest createRequest(String url) {
+<span class="nc" id="L66">        return HttpRequest.newBuilder().uri(URI.create(url)).build();</span>
+    }
+
+    public List&lt;String&gt; extractDataUrls(Stream&lt;String&gt; htmlLines) {
+<span class="fc" id="L70">        return htmlLines.filter(this::hasScriptData)</span>
+<span class="fc" id="L71">                .map(this::extractScriptData)</span>
+<span class="fc" id="L72">                .filter(scriptData -&gt; scriptData.get(&quot;title&quot;).equals(&quot;new-website-devon-flower&quot;)) // flower only</span>
+<span class="fc" id="L73">                .map(this::extractDataUrl)</span>
+<span class="fc" id="L74">                .toList();</span>
+    }
+
+    private String extractDataUrl(Map scriptData) {
+<span class="fc" id="L78">        return ((Map)scriptData.get(&quot;init_config&quot;)).get(&quot;data_request_url&quot;).toString();</span>
+    }
+
+    private boolean hasScriptData(String htmlLine) {
+<span class="fc" id="L82">        return htmlLine.trim().startsWith(&quot;window['ninja_table_instance_&quot;);</span>
+    }
+
+    private Map extractScriptData(String htmlLine) {
+        try {
+<span class="fc" id="L87">            return reader.readValue(htmlLine.substring(htmlLine.indexOf(&quot;=&quot;) + 1), HashMap.class);</span>
+<span class="nc" id="L88">        } catch (IOException e) {</span>
+<span class="nc" id="L89">            throw new RuntimeException(e);</span>
+        }
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

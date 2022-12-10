@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SearchController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">server</a> &gt; <a href="index.source.html" class="el_package">org.thinkbigthings.zdd.server.controller</a> &gt; <span class="el_source">SearchController.java</span></div><h1>SearchController.java</h1><pre class="source lang-java linenums">package org.thinkbigthings.zdd.server.controller;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+import org.thinkbigthings.zdd.dto.*;
+import org.thinkbigthings.zdd.server.scraper.keystone.Item;
+import org.thinkbigthings.zdd.server.service.SearchConfigService;
+import org.thinkbigthings.zdd.server.service.SearchService;
+
+import java.util.List;
+
+import static org.springframework.web.bind.annotation.RequestMethod.*;
+
+
+@RestController
+public class SearchController {
+
+<span class="fc" id="L21">    private static Logger LOG = LoggerFactory.getLogger(SearchController.class);</span>
+
+    private final SearchService searchService;
+    private final SearchConfigService searchConfigService;
+
+    // if there's only one constructor, can omit Autowired and Inject
+<span class="fc" id="L27">    public SearchController(SearchService searchService, SearchConfigService searchConfigService) {</span>
+<span class="fc" id="L28">        this.searchService = searchService;</span>
+<span class="fc" id="L29">        this.searchConfigService = searchConfigService;</span>
+<span class="fc" id="L30">    }</span>
+
+    @PreAuthorize(&quot;hasRole('ROLE_ADMIN') || #username == authentication.name&quot;)
+    @RequestMapping(value=&quot;/user/{username}/searchconfig&quot;, method = GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public SearchItemsInStores getSearchConfig(@PathVariable String username) {
+<span class="fc" id="L36">        LOG.info(&quot;Getting search config for &quot; + username);</span>
+<span class="fc" id="L37">        return searchConfigService.getSearches(username);</span>
+    }
+
+    @PreAuthorize(&quot;hasRole('ROLE_ADMIN') || #username == authentication.name&quot;)
+    @RequestMapping(value=&quot;/user/{username}/searchconfig&quot;, method = PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public void updateSearchConfig(@RequestBody SearchItemsInStores searchConfig, @PathVariable String username) {
+<span class="fc" id="L44">        LOG.info(&quot;Updating search config for &quot; + username);</span>
+<span class="fc" id="L45">        searchConfigService.updateSearchConfig(username, searchConfig);</span>
+<span class="fc" id="L46">    }</span>
+
+    /**
+     * Using POST instead of GET since we want a more complex query and need a request body to do that.
+     *
+     * @param searchConfig
+     * @return
+     */
+    @PreAuthorize(&quot;isAuthenticated()&quot;)
+    @RequestMapping(value=&quot;/search&quot;, method = POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public List&lt;Item&gt; search(@RequestBody SearchItemsInStores searchConfig) {
+<span class="fc" id="L58">        return searchService.search(searchConfig);</span>
+    }
+
+    @PreAuthorize(&quot;hasRole('ROLE_ADMIN') || #username == authentication.name&quot;)
+    @RequestMapping(value=&quot;/user/{username}/search&quot;, method = GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public List&lt;Item&gt; runSavedSearch(@PathVariable String username) {
+<span class="fc" id="L65">        return searchService.search(username);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

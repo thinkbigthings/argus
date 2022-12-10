@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - UserRepositoryTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>UserRepositoryTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/org.thinkbigthings.zdd.server.html">org.thinkbigthings.zdd.server</a> &gt; UserRepositoryTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">3</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.083s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">testListUsers()</td>
+<td class="success">0.039s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testNPlusOne()</td>
+<td class="success">0.037s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testNPlusOneWithJoinFetch()</td>
+<td class="success">0.007s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>2022-12-10T15:44:11.272-05:00  INFO 63538 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [org.thinkbigthings.zdd.server.UserRepositoryTest]: UserRepositoryTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2022-12-10T15:44:11.273-05:00  INFO 63538 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration org.thinkbigthings.zdd.server.Application for test class org.thinkbigthings.zdd.server.UserRepositoryTest
+2022-12-10T15:44:11.275-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : select u1_0.id from app_user u1_0 where u1_0.username=? fetch first ? rows only
+2022-12-10T15:44:11.353-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : insert into app_user (display_name, email, enabled, password, registration_time, username) values (?, ?, ?, ?, ?, ?)
+2022-12-10T15:44:11.356-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : insert into search_config (active, last_search, user_id) values (?, ?, ?)
+2022-12-10T15:44:11.359-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : insert into user_role (user_id, role_id) values (?, ?)
+2022-12-10T15:44:11.397-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : select u1_0.id from app_user u1_0 where u1_0.username=? fetch first ? rows only
+2022-12-10T15:44:11.476-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : insert into app_user (display_name, email, enabled, password, registration_time, username) values (?, ?, ?, ?, ?, ?)
+2022-12-10T15:44:11.481-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : insert into search_config (active, last_search, user_id) values (?, ?, ?)
+2022-12-10T15:44:11.486-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : insert into user_role (user_id, role_id) values (?, ?)
+2022-12-10T15:44:11.491-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : select u1_0.id from app_user u1_0 where u1_0.username=? fetch first ? rows only
+2022-12-10T15:44:11.573-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : insert into app_user (display_name, email, enabled, password, registration_time, username) values (?, ?, ?, ?, ?, ?)
+2022-12-10T15:44:11.579-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : insert into search_config (active, last_search, user_id) values (?, ?, ?)
+2022-12-10T15:44:11.584-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : insert into user_role (user_id, role_id) values (?, ?)
+2022-12-10T15:44:11.599-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : select u1_0.id from app_user u1_0 where u1_0.username=? fetch first ? rows only
+2022-12-10T15:44:11.676-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : insert into app_user (display_name, email, enabled, password, registration_time, username) values (?, ?, ?, ?, ?, ?)
+2022-12-10T15:44:11.681-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : insert into search_config (active, last_search, user_id) values (?, ?, ?)
+2022-12-10T15:44:11.683-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : insert into user_role (user_id, role_id) values (?, ?)
+2022-12-10T15:44:11.688-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : select u1_0.id from app_user u1_0 where u1_0.username=? fetch first ? rows only
+2022-12-10T15:44:11.775-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : insert into app_user (display_name, email, enabled, password, registration_time, username) values (?, ?, ?, ?, ?, ?)
+2022-12-10T15:44:11.785-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : insert into search_config (active, last_search, user_id) values (?, ?, ?)
+2022-12-10T15:44:11.790-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : insert into user_role (user_id, role_id) values (?, ?)
+2022-12-10T15:44:11.805-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : select u1_0.id from app_user u1_0 where u1_0.username=? fetch first ? rows only
+2022-12-10T15:44:11.885-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : insert into app_user (display_name, email, enabled, password, registration_time, username) values (?, ?, ?, ?, ?, ?)
+2022-12-10T15:44:11.888-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : insert into search_config (active, last_search, user_id) values (?, ?, ?)
+2022-12-10T15:44:11.893-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : insert into user_role (user_id, role_id) values (?, ?)
+2022-12-10T15:44:11.898-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : select u1_0.id from app_user u1_0 where u1_0.username=? fetch first ? rows only
+2022-12-10T15:44:11.978-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : insert into app_user (display_name, email, enabled, password, registration_time, username) values (?, ?, ?, ?, ?, ?)
+2022-12-10T15:44:11.983-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : insert into search_config (active, last_search, user_id) values (?, ?, ?)
+2022-12-10T15:44:11.987-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : insert into user_role (user_id, role_id) values (?, ?)
+2022-12-10T15:44:12.000-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : select u1_0.id from app_user u1_0 where u1_0.username=? fetch first ? rows only
+2022-12-10T15:44:12.081-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : insert into app_user (display_name, email, enabled, password, registration_time, username) values (?, ?, ?, ?, ?, ?)
+2022-12-10T15:44:12.088-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : insert into search_config (active, last_search, user_id) values (?, ?, ?)
+2022-12-10T15:44:12.097-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : insert into user_role (user_id, role_id) values (?, ?)
+2022-12-10T15:44:12.101-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : select u1_0.id from app_user u1_0 where u1_0.username=? fetch first ? rows only
+2022-12-10T15:44:12.177-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : insert into app_user (display_name, email, enabled, password, registration_time, username) values (?, ?, ?, ?, ?, ?)
+2022-12-10T15:44:12.183-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : insert into search_config (active, last_search, user_id) values (?, ?, ?)
+2022-12-10T15:44:12.185-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : insert into user_role (user_id, role_id) values (?, ?)
+2022-12-10T15:44:12.189-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : select u1_0.id from app_user u1_0 where u1_0.username=? fetch first ? rows only
+2022-12-10T15:44:12.268-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : insert into app_user (display_name, email, enabled, password, registration_time, username) values (?, ?, ?, ?, ?, ?)
+2022-12-10T15:44:12.271-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : insert into search_config (active, last_search, user_id) values (?, ?, ?)
+2022-12-10T15:44:12.274-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : insert into user_role (user_id, role_id) values (?, ?)
+2022-12-10T15:44:12.281-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.IntegrationTest           : 
+2022-12-10T15:44:12.281-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.IntegrationTest           : =======================================================================================
+2022-12-10T15:44:12.281-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.IntegrationTest           : Executing test testListUsers()
+2022-12-10T15:44:12.281-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.IntegrationTest           : using web server port 52866
+2022-12-10T15:44:12.281-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.IntegrationTest           : TestContainer jdbc url: jdbc:postgresql://localhost:5432/test?autosave=conservative&amp;loggerLevel=OFF
+2022-12-10T15:44:12.281-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.IntegrationTest           : TestContainer username: test
+2022-12-10T15:44:12.281-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.IntegrationTest           : TestContainer password: test
+2022-12-10T15:44:12.281-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.IntegrationTest           : 
+2022-12-10T15:44:12.284-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : select count(*) from app_user u1_0
+2022-12-10T15:44:12.290-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : select u1_0.id,u1_0.display_name,u1_0.email,u1_0.enabled,u1_0.password,u1_0.registration_time,u1_0.username from app_user u1_0 offset ? rows fetch first ? rows only
+2022-12-10T15:44:12.293-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : select s1_0.user_id,s1_0.active,s1_0.last_search from search_config s1_0 where s1_0.user_id=?
+2022-12-10T15:44:12.295-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : select s1_0.user_id,s1_0.active,s1_0.last_search from search_config s1_0 where s1_0.user_id=?
+2022-12-10T15:44:12.299-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : select s1_0.user_id,s1_0.active,s1_0.last_search from search_config s1_0 where s1_0.user_id=?
+2022-12-10T15:44:12.301-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : select s1_0.user_id,s1_0.active,s1_0.last_search from search_config s1_0 where s1_0.user_id=?
+2022-12-10T15:44:12.303-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : select s1_0.user_id,s1_0.active,s1_0.last_search from search_config s1_0 where s1_0.user_id=?
+2022-12-10T15:44:12.305-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : select s1_0.user_id,s1_0.active,s1_0.last_search from search_config s1_0 where s1_0.user_id=?
+2022-12-10T15:44:12.307-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : select s1_0.user_id,s1_0.active,s1_0.last_search from search_config s1_0 where s1_0.user_id=?
+2022-12-10T15:44:12.312-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : select s1_0.user_id,s1_0.active,s1_0.last_search from search_config s1_0 where s1_0.user_id=?
+2022-12-10T15:44:12.313-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : select s1_0.user_id,s1_0.active,s1_0.last_search from search_config s1_0 where s1_0.user_id=?
+2022-12-10T15:44:12.314-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : select s1_0.user_id,s1_0.active,s1_0.last_search from search_config s1_0 where s1_0.user_id=?
+2022-12-10T15:44:12.316-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : select count(u1_0.id) from app_user u1_0
+2022-12-10T15:44:12.325-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.IntegrationTest           : 
+2022-12-10T15:44:12.325-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.IntegrationTest           : =======================================================================================
+2022-12-10T15:44:12.325-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.IntegrationTest           : Executing test testNPlusOne()
+2022-12-10T15:44:12.325-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.IntegrationTest           : using web server port 52866
+2022-12-10T15:44:12.325-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.IntegrationTest           : TestContainer jdbc url: jdbc:postgresql://localhost:5432/test?autosave=conservative&amp;loggerLevel=OFF
+2022-12-10T15:44:12.325-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.IntegrationTest           : TestContainer username: test
+2022-12-10T15:44:12.325-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.IntegrationTest           : TestContainer password: test
+2022-12-10T15:44:12.325-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.IntegrationTest           : 
+2022-12-10T15:44:12.326-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : select u1_0.id,u1_0.display_name,u1_0.email,u1_0.enabled,u1_0.password,u1_0.registration_time,u1_0.username from app_user u1_0 order by u1_0.username asc offset ? rows fetch first ? rows only
+2022-12-10T15:44:12.328-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : select s1_0.user_id,s1_0.active,s1_0.last_search from search_config s1_0 where s1_0.user_id=?
+2022-12-10T15:44:12.329-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : select s1_0.user_id,s1_0.active,s1_0.last_search from search_config s1_0 where s1_0.user_id=?
+2022-12-10T15:44:12.330-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : select s1_0.user_id,s1_0.active,s1_0.last_search from search_config s1_0 where s1_0.user_id=?
+2022-12-10T15:44:12.331-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : select s1_0.user_id,s1_0.active,s1_0.last_search from search_config s1_0 where s1_0.user_id=?
+2022-12-10T15:44:12.332-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : select s1_0.user_id,s1_0.active,s1_0.last_search from search_config s1_0 where s1_0.user_id=?
+2022-12-10T15:44:12.333-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : select s1_0.user_id,s1_0.active,s1_0.last_search from search_config s1_0 where s1_0.user_id=?
+2022-12-10T15:44:12.334-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : select s1_0.user_id,s1_0.active,s1_0.last_search from search_config s1_0 where s1_0.user_id=?
+2022-12-10T15:44:12.335-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : select s1_0.user_id,s1_0.active,s1_0.last_search from search_config s1_0 where s1_0.user_id=?
+2022-12-10T15:44:12.336-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : select s1_0.user_id,s1_0.active,s1_0.last_search from search_config s1_0 where s1_0.user_id=?
+2022-12-10T15:44:12.337-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : select s1_0.user_id,s1_0.active,s1_0.last_search from search_config s1_0 where s1_0.user_id=?
+2022-12-10T15:44:12.338-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : select a1_0.user_id,a1_0.id,a1_0.city,a1_0.line1,a1_0.state,a1_0.zip from address a1_0 where a1_0.user_id=?
+2022-12-10T15:44:12.341-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : select a1_0.user_id,a1_0.id,a1_0.city,a1_0.line1,a1_0.state,a1_0.zip from address a1_0 where a1_0.user_id=?
+2022-12-10T15:44:12.343-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : select a1_0.user_id,a1_0.id,a1_0.city,a1_0.line1,a1_0.state,a1_0.zip from address a1_0 where a1_0.user_id=?
+2022-12-10T15:44:12.346-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : select a1_0.user_id,a1_0.id,a1_0.city,a1_0.line1,a1_0.state,a1_0.zip from address a1_0 where a1_0.user_id=?
+2022-12-10T15:44:12.347-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : select a1_0.user_id,a1_0.id,a1_0.city,a1_0.line1,a1_0.state,a1_0.zip from address a1_0 where a1_0.user_id=?
+2022-12-10T15:44:12.348-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : select a1_0.user_id,a1_0.id,a1_0.city,a1_0.line1,a1_0.state,a1_0.zip from address a1_0 where a1_0.user_id=?
+2022-12-10T15:44:12.349-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : select a1_0.user_id,a1_0.id,a1_0.city,a1_0.line1,a1_0.state,a1_0.zip from address a1_0 where a1_0.user_id=?
+2022-12-10T15:44:12.350-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : select a1_0.user_id,a1_0.id,a1_0.city,a1_0.line1,a1_0.state,a1_0.zip from address a1_0 where a1_0.user_id=?
+2022-12-10T15:44:12.352-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : select a1_0.user_id,a1_0.id,a1_0.city,a1_0.line1,a1_0.state,a1_0.zip from address a1_0 where a1_0.user_id=?
+2022-12-10T15:44:12.353-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : select a1_0.user_id,a1_0.id,a1_0.city,a1_0.line1,a1_0.state,a1_0.zip from address a1_0 where a1_0.user_id=?
+2022-12-10T15:44:12.359-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.IntegrationTest           : 
+2022-12-10T15:44:12.359-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.IntegrationTest           : =======================================================================================
+2022-12-10T15:44:12.359-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.IntegrationTest           : Executing test testNPlusOneWithJoinFetch()
+2022-12-10T15:44:12.359-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.IntegrationTest           : using web server port 52866
+2022-12-10T15:44:12.359-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.IntegrationTest           : TestContainer jdbc url: jdbc:postgresql://localhost:5432/test?autosave=conservative&amp;loggerLevel=OFF
+2022-12-10T15:44:12.359-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.IntegrationTest           : TestContainer username: test
+2022-12-10T15:44:12.359-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.IntegrationTest           : TestContainer password: test
+2022-12-10T15:44:12.359-05:00  INFO 63538 --- [    Test worker] o.t.zdd.server.IntegrationTest           : 
+2022-12-10T15:44:12.360-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : select u1_0.id,u1_0.display_name,u1_0.email,u1_0.enabled,u1_0.password,u1_0.registration_time,r1_0.user_id,r1_0.role_id,u1_0.username from app_user u1_0 join user_role r1_0 on u1_0.id=r1_0.user_id where u1_0.username=?
+2022-12-10T15:44:12.362-05:00 DEBUG 63538 --- [    Test worker] org.hibernate.SQL                        : select s1_0.user_id,s1_0.active,s1_0.last_search from search_config s1_0 where s1_0.user_id=?
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 7.4</a> at Dec 10, 2022, 3:44:13 PM</p>
+</div>
+</div>
+</body>
+</html>

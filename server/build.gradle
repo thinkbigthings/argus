@@ -1,0 +1,133 @@
+
+buildscript {
+    dependencies {
+        classpath 'org.postgresql:postgresql:42.5.0'
+    }
+}
+
+plugins {
+    id 'org.springframework.boot' version '3.0.0'
+    id 'jacoco' // core plugin provided by gradle
+    id 'org.flywaydb.flyway' version '9.8.3'
+}
+
+//// to get a later version of security
+//apply plugin: "io.spring.dependency-management"
+//ext['spring-security.version']='5.8.0'
+
+dependencies {
+
+    implementation 'org.postgresql:postgresql:42.5.0'
+
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:3.0.0'
+    implementation 'org.springframework.boot:spring-boot-starter-web:3.0.0'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator:3.0.0'
+    implementation 'org.springframework.boot:spring-boot-starter-security:3.0.0'
+    implementation 'org.springframework.boot:spring-boot-starter-validation:3.0.0'
+
+    implementation 'org.springframework.session:spring-session-jdbc:3.0.0'
+
+    compileOnly 'org.hibernate:hibernate-jpamodelgen:6.1.5.Final'
+    annotationProcessor 'org.hibernate:hibernate-jpamodelgen:6.1.5.Final'
+
+    implementation 'org.jsoup:jsoup:1.14.3'
+
+    // JAXB was removed in Java 11 so needs to be included here
+    implementation 'javax.xml.bind:jaxb-api:2.3.1'
+
+    implementation 'org.flywaydb:flyway-core:9.8.3'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:3.0.0'
+    testImplementation 'net.datafaker:datafaker:1.6.0'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
+    testImplementation 'org.mockito:mockito-junit-jupiter:4.3.1'
+
+    testImplementation "org.testcontainers:testcontainers:1.16.3"
+    testImplementation "org.testcontainers:junit-jupiter:1.16.3"
+    testImplementation "org.testcontainers:postgresql:1.16.3"
+}
+
+
+sourceSets {
+    generated {
+        java {
+            srcDirs = ['build/generated/sources']
+        }
+    }
+}
+
+// Since Spring Boot 2.5, it builds both an executable jar and a plain jar suitable for use as a library.
+// This block prevents building the "plain" jar so we only build the executable jar
+jar {
+    enabled = false
+}
+
+// https://docs.gradle.org/current/userguide/jacoco_plugin.html
+jacoco {
+    toolVersion = "0.8.7"
+}
+
+jacocoTestReport {
+
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.destination file("${buildDir}/reports/jacoco/html")
+    }
+
+    // so we can get test data from both tests and integration tests
+    getExecutionData().setFrom(fileTree(buildDir).include("/jacoco/**/jacocoTest.exec"))
+
+    // ignore code that's not a good fit for unit testing
+    // e.g. getters and setters in JPA entities
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    "**/entity/*"
+            ])
+        }))
+    }
+}
+
+// integration test by tags,
+// inspired by https://stackoverflow.com/questions/40891867/junit5-tag-specific-gradle-task
+
+test {
+    useJUnitPlatform {
+        excludeTags "integration"
+    }
+    jacoco {
+        destinationFile = file("$buildDir/jacoco/test/jacocoTest.exec")
+        classDumpDir = file("$buildDir/jacoco/test/classpathdumps")
+    }
+    finalizedBy jacocoTestReport // report is always generated after tests run
+}
+
+def integrationTest = tasks.register("integrationTest", Test) {
+
+    // this lets the container stay up so you can run standalone later with the same container if you want
+    // the flag here merely allows you to use the setting, to actually leave a container up (or not), call
+    // the container's .withReuse() method
+    environment "TESTCONTAINERS_REUSE_ENABLE", "true"
+
+    // It takes a couple of seconds, but if you want to speed up your tests,
+    // you can disable the checks once you have everything configured
+    // TODO I think this overwrites the above? Maybe you can only make one environment call here
+    // environment "TESTCONTAINERS_CHECKS_DISABLE", "true"
+
+    useJUnitPlatform {
+        includeTags "integration"
+    }
+
+    jacoco {
+        destinationFile = file("$buildDir/jacoco/integrationTest/jacocoTest.exec")
+        classDumpDir = file("$buildDir/jacoco/integrationTest/classpathdumps")
+    }
+
+    finalizedBy jacocoTestReport // report is always generated after tests run
+}
+
+tasks.named("check") {
+    dependsOn integrationTest
+}

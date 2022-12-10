@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserMapper.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">server</a> &gt; <a href="index.source.html" class="el_package">org.thinkbigthings.zdd.server.mapper.entitytodto</a> &gt; <span class="el_source">UserMapper.java</span></div><h1>UserMapper.java</h1><pre class="source lang-java linenums">package org.thinkbigthings.zdd.server.mapper.entitytodto;
+
+import org.thinkbigthings.zdd.dto.AddressRecord;
+import org.thinkbigthings.zdd.dto.PersonalInfo;
+import org.thinkbigthings.zdd.server.entity.Address;
+import org.thinkbigthings.zdd.server.entity.Role;
+import org.thinkbigthings.zdd.server.entity.User;
+
+import java.util.Set;
+import java.util.function.Function;
+
+import static java.util.stream.Collectors.toSet;
+
+<span class="fc" id="L14">public class UserMapper implements Function&lt;User, org.thinkbigthings.zdd.dto.User&gt; {</span>
+
+    @Override
+    public org.thinkbigthings.zdd.dto.User apply(User user) {
+
+<span class="fc" id="L19">        return new org.thinkbigthings.zdd.dto.User( user.getUsername(),</span>
+<span class="fc" id="L20">                user.getRegistrationTime().toString(),</span>
+<span class="fc" id="L21">                user.getRoles().stream()</span>
+<span class="fc" id="L22">                        .map(Role::name)</span>
+<span class="fc" id="L23">                        .collect(toSet()),</span>
+<span class="fc" id="L24">                toPersonalInfoRecord(user),</span>
+<span class="fc bfc" id="L25" title="All 2 branches covered.">                user.getSessions().size() &gt; 0);</span>
+    }
+
+    public PersonalInfo toPersonalInfoRecord(User user) {
+
+<span class="fc" id="L30">        Set&lt;AddressRecord&gt; addresses = user.getAddresses().stream()</span>
+<span class="fc" id="L31">                .map(this::toAddressRecord)</span>
+<span class="fc" id="L32">                .collect(toSet());</span>
+
+<span class="fc" id="L34">        return new PersonalInfo(user.getEmail(),</span>
+<span class="fc" id="L35">                user.getDisplayName(),</span>
+                addresses);
+    }
+
+    public AddressRecord toAddressRecord(Address address) {
+<span class="fc" id="L40">        return new AddressRecord(address.getLine1(),</span>
+<span class="fc" id="L41">                address.getCity(),</span>
+<span class="fc" id="L42">                address.getState(),</span>
+<span class="fc" id="L43">                address.getZip());</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

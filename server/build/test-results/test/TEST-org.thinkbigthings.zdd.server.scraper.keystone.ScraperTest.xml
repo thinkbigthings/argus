@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.thinkbigthings.zdd.server.scraper.keystone.ScraperTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-12-10T20:44:20" hostname="MAC-jyoung.local" time="0.018">
+  <properties/>
+  <testcase name="testScraper()" classname="org.thinkbigthings.zdd.server.scraper.keystone.ScraperTest" time="0.018"/>
+  <system-out><![CDATA[[https://keystoneshops.com/wp-admin/admin-ajax.php?action=wp_ajax_ninja_tables_public_action&table_id=7824&target_action=get-all-data&default_sorting=old_first&ninja_table_public_nonce=76d4b21915]
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
